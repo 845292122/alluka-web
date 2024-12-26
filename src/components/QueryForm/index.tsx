@@ -1,4 +1,5 @@
-import { Button, Col, DatePicker, Form, Input, Row, Select } from 'antd'
+import { Down, Up } from '@icon-park/react'
+import { Button, Col, DatePicker, Form, Input, Row, Select, Space } from 'antd'
 import React, { useState } from 'react'
 
 export type QueryFormField = {
@@ -17,7 +18,7 @@ type QueryFormProps = {
 const QueryForm: React.FC<QueryFormProps> = ({ fields, onSearch, onReset }) => {
   const [form] = Form.useForm()
   const [expanded, setExpanded] = useState<boolean>(false)
-  const visibleFields = expanded ? fields : fields.slice(0, 2)
+  const visibleFields = expanded ? fields : fields.slice(0, 3)
 
   const handleReset = () => {
     form.resetFields()
@@ -37,16 +38,21 @@ const QueryForm: React.FC<QueryFormProps> = ({ fields, onSearch, onReset }) => {
   }
 
   return (
-    <Form form={form} layout="vertical" name="query-bar">
-      <Row gutter={24}>
+    <Form form={form} name="query-bar">
+      <Row gutter={[16, 12]} align="middle" wrap>
         {visibleFields.map(field => (
-          <Col span={8}>
-            <Form.Item name={field.name} label={field.label}>
+          <Col
+            xs={24}
+            sm={field.type === 'dateRange' ? 24 : 12}
+            md={field.type === 'dateRange' ? 12 : 8}
+            lg={field.type === 'dateRange' ? 8 : 6}
+          >
+            <Form.Item name={field.name} label={field.label} className="mb-0">
               {/* 输入框 */}
               {field.type === 'input' && <Input placeholder={`请输入${field.label}`} />}
               {/* 下拉框 */}
               {field.type === 'select' && (
-                <Select placeholder={`请选择${field.label}`}>
+                <Select placeholder={`请选择${field.label}`} allowClear>
                   {field.options?.map(option => (
                     <Select.Option value={option.value} key={option.value}>
                       {option.label}
@@ -58,23 +64,32 @@ const QueryForm: React.FC<QueryFormProps> = ({ fields, onSearch, onReset }) => {
             </Form.Item>
           </Col>
         ))}
-      </Row>
-      <Row justify="end" gutter={16}>
+
+        {/* 占位符，确保展开/收起按钮始终对齐 */}
+        <Col flex="auto" />
+
+        {/* 操作按钮（搜索、重置、展开/收起） */}
         <Col>
-          <Button onClick={handleReset}>重置</Button>
-        </Col>
-        <Col>
-          <Button type="primary" onClick={handleSearch}>
-            搜索
-          </Button>
-        </Col>
-        {fields.length > 2 && (
-          <Col>
-            <Button type="link" onClick={() => setExpanded(!expanded)}>
-              {expanded ? '收起' : '展开'}
+          <Space>
+            <Button onClick={handleReset}>重置</Button>
+            <Button type="primary" onClick={handleSearch}>
+              搜索
             </Button>
-          </Col>
-        )}
+            {fields.length > 3 && (
+              <Button type="link" onClick={() => setExpanded(!expanded)}>
+                {expanded ? (
+                  <>
+                    收起 <Up theme="outline" size="14" fill="#1677FF" />
+                  </>
+                ) : (
+                  <>
+                    展开 <Down theme="outline" size="14" fill="#1677FF" />
+                  </>
+                )}
+              </Button>
+            )}
+          </Space>
+        </Col>
       </Row>
     </Form>
   )

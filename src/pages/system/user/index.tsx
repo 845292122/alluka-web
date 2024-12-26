@@ -62,7 +62,8 @@ const User: React.FC = () => {
         { label: '正常', value: 1 },
         { label: '停用', value: 0 }
       ]
-    }
+    },
+    { name: 'dateRange', label: '创建时间', type: 'dateRange' }
   ]
 
   const cancelUserModal = () => {
