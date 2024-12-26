@@ -1,13 +1,6 @@
-# React Ant Admin
+# ALLUKA WEB
 
 ## TODO
-
-- [x] 整合antd
-- [x] 整合ant-motion
-- [x] 图表
-- [x] ahooks
-- [x] 菜单跳转
-- [ ] 多页签
 
 ## 组件规范
 
