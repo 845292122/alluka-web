@@ -1,6 +1,7 @@
-import { Delete, Down, Plus } from '@icon-park/react'
-import { Button, Form, Modal, Row, Space, Table, TableProps, theme } from 'antd'
+import { Delete, Plus } from '@icon-park/react'
+import { Button, Modal, Space, Table, TableProps } from 'antd'
 import React, { useState } from 'react'
+import QueryForm, { QueryFormField } from '~/components/QueryForm'
 import { USER } from '~/types/user'
 
 const UserInfo: React.FC<USER.UserModal> = props => {
@@ -21,10 +22,7 @@ const UserInfo: React.FC<USER.UserModal> = props => {
   )
 }
 
-export default function User() {
-  const [form] = Form.useForm()
-  const { token } = theme.useToken()
-
+const User: React.FC = () => {
   const [userModalState, setUserModalState] = useState<boolean>(false)
   const tableColumns: TableProps<USER.UserTableVO>['columns'] = [
     {
@@ -53,6 +51,19 @@ export default function User() {
       dataIndex: 'updatedAt'
     }
   ]
+  const queryFields: Array<QueryFormField> = [
+    { name: 'name', label: '名称', type: 'input' },
+    { name: 'phone', label: '电话', type: 'input' },
+    {
+      name: 'status',
+      label: '状态',
+      type: 'select',
+      options: [
+        { label: '正常', value: 1 },
+        { label: '停用', value: 0 }
+      ]
+    }
+  ]
 
   const cancelUserModal = () => {
     setUserModalState(false)
@@ -65,24 +76,7 @@ export default function User() {
 
   return (
     <>
-      <Form form={form} name="query-bar">
-        <Row gutter={24}></Row>
-        <div className="align-right">
-          <Space size="small">
-            <Button type="primary">搜索</Button>
-            <Button
-              onClick={() => {
-                form.resetFields()
-              }}
-            >
-              重置
-            </Button>
-            <Button type="link" icon={<Down theme="outline" size="16" fill={token.colorPrimary} />}>
-              展开
-            </Button>
-          </Space>
-        </div>
-      </Form>
+      <QueryForm fields={queryFields} onSearch={() => {}} />
       <Space size={'small'} className="mt-20 mb-5">
         <Button type="primary" icon={<Plus theme="outline" size="14" fill="#ffffff" />} onClick={() => setUserModalState(true)}>
           新增
@@ -96,3 +90,5 @@ export default function User() {
     </>
   )
 }
+
+export default User

@@ -1,20 +1,20 @@
 import { Button, Col, DatePicker, Form, Input, Row, Select } from 'antd'
 import React, { useState } from 'react'
 
-type QueryBarField = {
+export type QueryFormField = {
   name: string
   label: string
   type: 'input' | 'select' | 'dateRange'
   options?: Array<{ label: string; value: string | number }>
 }
 
-type QueryBarProps = {
-  fields: QueryBarField[]
+type QueryFormProps = {
+  fields: QueryFormField[]
   onSearch: (values: unknown) => void
   onReset?: () => void
 }
 
-const QueryBar: React.FC<QueryBarProps> = ({ fields, onSearch, onReset }) => {
+const QueryForm: React.FC<QueryFormProps> = ({ fields, onSearch, onReset }) => {
   const [form] = Form.useForm()
   const [expanded, setExpanded] = useState<boolean>(false)
   const visibleFields = expanded ? fields : fields.slice(0, 2)
@@ -36,7 +36,6 @@ const QueryBar: React.FC<QueryBarProps> = ({ fields, onSearch, onReset }) => {
     })
   }
 
-  // TODO: 时间区间选择框
   return (
     <Form form={form} layout="vertical" name="query-bar">
       <Row gutter={24}>
@@ -81,4 +80,4 @@ const QueryBar: React.FC<QueryBarProps> = ({ fields, onSearch, onReset }) => {
   )
 }
 
-export default QueryBar
+export default QueryForm
