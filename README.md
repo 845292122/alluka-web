@@ -1,5 +1,13 @@
 # ALLUKA WEB
 
+## 技术栈
+
+- React18
+- Ant Design
+- Icon Park
+- Jotai
+- Vite
+
 ## TODO
 
 ## 组件规范
