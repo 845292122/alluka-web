@@ -1,10 +1,10 @@
-import { Button, Col, Form, Input, Row, Select } from 'antd'
+import { Button, Col, DatePicker, Form, Input, Row, Select } from 'antd'
 import React, { useState } from 'react'
 
 type QueryBarField = {
   name: string
   label: string
-  type: 'input' | 'select'
+  type: 'input' | 'select' | 'dateRange'
   options?: Array<{ label: string; value: string | number }>
 }
 
@@ -26,7 +26,13 @@ const QueryBar: React.FC<QueryBarProps> = ({ fields, onSearch, onReset }) => {
 
   const handleSearch = () => {
     form.validateFields().then(values => {
-      onSearch(values)
+      const formattedValues = { ...values }
+      Object.keys(values).forEach(key => {
+        if (Array.isArray(values[key]) && values[key][0]?._isAMomentObject) {
+          formattedValues[key] = values[key].map(date => date?.format('YYYY-MM-DD'))
+        }
+      })
+      onSearch(formattedValues)
     })
   }
 
@@ -49,6 +55,7 @@ const QueryBar: React.FC<QueryBarProps> = ({ fields, onSearch, onReset }) => {
                   ))}
                 </Select>
               )}
+              {field.type === 'dateRange' && <DatePicker.RangePicker style={{ width: '100%' }} />}
             </Form.Item>
           </Col>
         ))}
