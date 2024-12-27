@@ -1,5 +1,5 @@
 import { Delete, Plus } from '@icon-park/react'
-import { Button, Modal, Space, Table, TableProps } from 'antd'
+import { Button, Card, Modal, Space, Table, TableProps } from 'antd'
 import React, { useState } from 'react'
 import QueryForm, { QueryFormField } from '~/components/QueryForm'
 import { USER } from '~/types/user'
@@ -77,7 +77,9 @@ const User: React.FC = () => {
 
   return (
     <>
-      <QueryForm fields={queryFields} onSearch={() => {}} />
+      <Card>
+        <QueryForm fields={queryFields} onSearch={() => {}} />
+      </Card>
       <Space size={'small'} className="mt-20 mb-5">
         <Button type="primary" icon={<Plus theme="outline" size="14" fill="#ffffff" />} onClick={() => setUserModalState(true)}>
           新增
