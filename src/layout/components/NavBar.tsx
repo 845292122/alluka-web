@@ -5,6 +5,7 @@ import { bizRoutes, RouteType } from '~/router'
 import { permissionsAtom } from '~/store'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { HamburgerButton } from '@icon-park/react'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -68,7 +69,7 @@ const NavBar = ({ collapsed }: { collapsed: boolean }) => {
             {
               key: route.meta.key,
               label: route.meta.title,
-              icon: route.meta.icon ?? undefined
+              icon: route.meta.icon ?? <HamburgerButton theme="outline" size="14" />
             }
           ]
         }
@@ -94,7 +95,7 @@ const NavBar = ({ collapsed }: { collapsed: boolean }) => {
           selectedKeys={selectedKeys}
           openKeys={openKeys}
           triggerSubMenuAction="click"
-          inlineIndent={26}
+          inlineIndent={24}
           onClick={clickMenu}
           onOpenChange={onOpenChange}
         />

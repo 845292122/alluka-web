@@ -3,6 +3,7 @@ import { RouteType } from '..'
 import lazyLoad from '../helper/lazyLoad'
 import React from 'react'
 import { SettingTwo } from '@icon-park/react'
+import IconWrapper from '~/components/IconWrapper'
 
 const SystemRoutes: Array<RouteType> = [
   {
@@ -12,7 +13,11 @@ const SystemRoutes: Array<RouteType> = [
       title: '系统管理',
       requireAuth: true,
       permission: 'system',
-      icon: <SettingTwo theme="outline" size="16" fill="#ffffff" strokeLinecap="square" />
+      icon: (
+        <IconWrapper color="#fa8c16" shape="circle">
+          <SettingTwo theme="outline" size="14" strokeLinecap="square" />
+        </IconWrapper>
+      )
     },
     children: [
       {

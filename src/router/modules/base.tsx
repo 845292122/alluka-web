@@ -4,6 +4,7 @@ import { RouteType } from '..'
 import lazyLoad from '../helper/lazyLoad'
 import React from 'react'
 import { System } from '@icon-park/react'
+import IconWrapper from '~/components/IconWrapper'
 
 const BaseRoutes: Array<RouteType> = [
   {
@@ -17,7 +18,11 @@ const BaseRoutes: Array<RouteType> = [
           key: '/',
           requireAuth: true,
           permission: 'home',
-          icon: <System theme="outline" size="16" fill="#ffffff" strokeLinecap="square" />
+          icon: (
+            <IconWrapper>
+              <System theme="outline" size="14" fill="#ffffff" strokeLinecap="square" />
+            </IconWrapper>
+          )
         }
       }
     ]
